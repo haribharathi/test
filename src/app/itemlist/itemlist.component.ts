@@ -4,28 +4,42 @@ import { Sample } from '../sample';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
-
-
-export interface PeriodicElement {
+export interface ItemElement {
+  code_num: number;
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
-@Component({
+const ITEMLIST: ItemElement[] = [
+  {code_num:200142, name: "30 lining"},
+{code_num:1911157,name: " blouse pcs"},
+{code_num:200241, name: "blouse pcs"},
+{code_num:1911172,name: " poly blouse"},
+{code_num:2001258,name: " dupta"},
+{code_num:2001257,name: " leggings"},
+{code_num:1911207,name: " patiyala"},
+{code_num:2001283,name: " poplin"},
+{code_num:200242, name: "madi lungi"},
+{code_num:191275, name: "madi lungi"},
+{code_num:1912121,name: " kerchief"},
+{code_num:2003150,name: " arthi (75 - 90)"},
+{code_num:2001256,name: " sareefall"},
+{code_num:200267, name: "black berry"},
+{code_num:191274, name: "kerchief"},
+{code_num:1912227,name: " metty towel"},
+{code_num:200127, name: "kunjam"},
+{code_num:2003151,name: " bra slips"},
+{code_num:200243, name: "readymade shirt half"},
+{code_num:200244, name: "readymade shirt full"},
+{code_num:200266, name: "kumki towel 30*60"},
+{code_num:191117, name: "svt inskirt 7 part"},
+{code_num:191118, name: "svt inskirt 8 part"},
+{code_num:191119, name: "svt inskirt 7 overlock"},
+{code_num:1911267,name: " svt inskirt 8 overlock"},
+{code_num:2003153,name: " baby slips"},
+{code_num:2003152,name: " abi slips"}
+]
+
+@Component({ 
   selector: 'app-itemlist',
   templateUrl: './itemlist.component.html',
   styleUrls: ['./itemlist.component.css']
@@ -34,8 +48,8 @@ export class ItemlistComponent implements OnInit {
 
   constructor(private itemsService: ItemsService) { }
 
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['code_num', 'name'];
+  dataSource = new MatTableDataSource<ItemElement>(ITEMLIST);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -46,6 +60,7 @@ export class ItemlistComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.getItemsList();
   }
   val: any;
   values: [];
